@@ -33,10 +33,3 @@ public class DronLiviano extends Dron{
     }
 
 }
-    }
-    @Override
-    public void mostrarInformacion(){
-        System.out.println("Costo de entrega: " + calcularCostoEntrega());
-    }
-
-}
