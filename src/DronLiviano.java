@@ -1,7 +1,7 @@
 public class DronLiviano extends Dron{
     private double limiteHoras = 2;
     public DronLiviano(){
-        super();
+        super("LIV001", "LivianoX", 12.5, 2.3, 1.5, 5.0);
     }
 
     public double getLimiteHoras() {
@@ -14,7 +14,7 @@ public class DronLiviano extends Dron{
 
     @Override
     public double calcularCostoEntrega(){
-        return costoBase + (getDistanciakm() * 0.50);
+        return getCostoBase() + (getDistanciakm() * 0.50);
     }
     @Override
     public boolean validarDatos(){
@@ -23,6 +23,16 @@ public class DronLiviano extends Dron{
         } else {
             return false;
         }
+    }
+    @Override
+    public void mostrarInformacion(){
+        System.out.println("--- Dron Liviano ---");
+        super.mostrarInformacion();
+        System.out.println("Limite de horas: " + limiteHoras);
+        System.out.println("Costo de entrega: " + calcularCostoEntrega());
+    }
+
+}
     }
     @Override
     public void mostrarInformacion(){
