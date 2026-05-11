@@ -1,7 +1,7 @@
 public class DronCarga extends Dron{
     private double costoPorKg;
     public DronCarga(){
-        super();
+        super("CAR001", "CargaMax", 45.0, 20.0, 3.0, 12.0);
     }
 
     public double getCostoPorKg() {
@@ -14,7 +14,7 @@ public class DronCarga extends Dron{
 
     @Override
     public double calcularCostoEntrega(){
-        return costoBase + (getDistanciakm() * 0.70) + (getPesoPaquete() * costoPorKg);
+        return getCostoBase() + (getDistanciakm() * 0.70) + (getPesoPaquete() * costoPorKg);
     }
 
     @Override
@@ -28,6 +28,9 @@ public class DronCarga extends Dron{
 
     @Override
     public void mostrarInformacion(){
-        System.out.println("Costo por entrega: " + calcularCostoEntrega());
+        System.out.println("--- Dron Carga ---");
+        super.mostrarInformacion();
+        System.out.println("Costo por kg: " + costoPorKg);
+        System.out.println("Costo de entrega: " + calcularCostoEntrega());
     }
 }
