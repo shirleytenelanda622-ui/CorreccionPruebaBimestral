@@ -1,54 +1,105 @@
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
-        Dron d1 = new DronLiviano();
-        d1.setCodigo("LIV001");
-        d1.setModelo("LivianoX");
-        d1.setCostoBase(5.00);
-        Dron d2 = new DronCarga();
-        d2.setCodigo("D2");
-        d2.setModelo("HeavyLift");
-        d2.setCostoBase(12.00);
-        Dron d3 = new DronEmergencia();
-        d3.setCodigo("D3");
-        d3.setModelo("RescuePro");
-        d3.setCostoBase(15.00);
 
-        System.out.println(" ===== INFORMACION INICIAL DE DRONES =====");
-        System.out.println("\n --- Dron Liviano ---");
-        d1.mostrarInformacion();
-        System.out.println("\n --- Dron Carga ---");
-        d2.mostrarInformacion();
-        System.out.println("\n --- Dron Emergencia ---");
-        d3.mostrarInformacion();
-        System.out.println("===========================================");
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        System.out.println(" ==== INGRESO DE NUEVOS DATOS ====");
-        System.out.println("¿Que dron desea actualizar? ");
-        System.out.println("1. Dron Liviano \n2. Dron Carga \n3. Dron Emergencia \nOpcion: ");
+
+        DronLiviano d1 = new DronLiviano();
+        DronCarga d2 = new DronCarga();
+        DronEmergencia d3 = new DronEmergencia();
+
+        System.out.println("===== INFORMACIÓN INICIAL DE DRONES =====\n");
+
+        d1.mostrarInformacion();
+        System.out.println();
+
+        d1.mostrarInformacion();
+        System.out.println();
+
+        d3.mostrarInformacion();
+        System.out.println();
+
+        System.out.println("===== INGRESO DE NUEVOS DATOS =====");
+        System.out.println("¿Qué dron desea actualizar?");
+        System.out.println("1. Dron Liviano");
+        System.out.println("2. Dron Carga");
+        System.out.println("3. Dron Emergencia");
+        System.out.print("Opción: ");
+
         int opcion = sc.nextInt();
 
-        System.out.print("\nIngrese distancia (km): ");
+        Dron dronSeleccionado = null;
+
+        switch (opcion) {
+            case 1:
+                dronSeleccionado = d1;
+                break;
+            case 2:
+                dronSeleccionado = d2;
+                break;
+            case 3:
+                dronSeleccionado = d3;
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                System.exit(0);
+        }
+
+        // Ingreso de datos
+        System.out.print("Ingrese distancia (km): ");
         double distancia = sc.nextDouble();
+
         System.out.print("Ingrese peso del paquete (kg): ");
         double peso = sc.nextDouble();
-        System.out.println("Ingrese horas de vuelo: ");
-        int horas = sc.nextInt();
 
-        Dron seleccionado = null;
-        if(opcion == 1){
-            seleccionado = d1;
-        } else if(opcion == 2){
-            seleccionado = d2;
+        System.out.print("Ingrese horas de vuelo: ");
+        double horas = sc.nextDouble();
+
+        // Uso de setters
+        dronSeleccionado.setDistanciakm(distancia);
+        dronSeleccionado.setPesoPaquete(peso);
+        dronSeleccionado.setHorasVuelo(horas);
+
+        // Validar datos
+        if (dronSeleccionado.validarDatos()) {
+
+            System.out.println("\nLos datos cumplen con las validaciones.");
+            System.out.print("¿Desea guardar los cambios? (s/n): ");
+            char respuesta = sc.next().charAt(0);
+
+            if (respuesta == 's' || respuesta == 'S') {
+                System.out.println("\nDatos actualizados correctamente.\n");
+
+                System.out.println("===== INFORMACIÓN ACTUALIZADA =====\n");
+                dronSeleccionado.mostrarInformacion();
+            } else {
+                System.out.println("No se guardaron los cambios.");
+            }
+
         } else {
-            seleccionado = d3;
+            System.out.println("\nERROR: Los datos ingresados no son válidos.");
+            System.out.println("No se guardaron los cambios.");
         }
-        if(seleccionado != null){
-            seleccionado.setDistanciakm(distancia);
+
+        System.out.println("\n===== DEMOSTRACION DE POLIMORFISMO =====");
+        System.out.println("\nLista de drones (tipo Dron): ");
+        System.out.println("-> " + d1.getCodigo() + " | Modelo: " + d1.getModelo() + " | Costo entrega: " + d1.calcularCostoEntrega());
+        System.out.println("-> " + d2.getCodigo() + " | Modelo: " + d2.getModelo() + " | Costo entrega: " + d2.calcularCostoEntrega());
+        System.out.println("-> " + d3.getCodigo() + " | Modelo: " + d3.getModelo() + " | Costo entrega: " + d3.calcularCostoEntrega());
+        System.out.println("\nLlamado al metodo mostrarInformacion() desde referencia Dron: ");
+        System.out.println("--- Informacion general ---");
+        System.out.println("Codigo: " + d1.getCodigo() + " | Modelo: "+ d1.getModelo());
+        System.out.println("Distancia: " + d1.getDistanciakm() + " | Peso: " + d1.getPesoPaquete() + " | Horas: " + d1.getHorasVuelo());
+        System.out.println("Costo de entrega: " + d1.calcularCostoEntrega());
+
+        System.out.println("===== FIN DEL PROGRAMA =====");
+        System.out.println("Gracias por usar el sistema de drones.");
+
+        sc.close();
+    }
+}
             seleccionado.setPesoPaquete(peso);
             seleccionado.setHorasVuelo(horas);
         }
